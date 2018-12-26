@@ -1,6 +1,7 @@
 " order sometimes matters here, be aware of that
 source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/general.vim
+source $HOME/.config/nvim/filetypes.vim
 source $HOME/.config/nvim/plugins/ultisnips.vim
 source $HOME/.config/nvim/plugins/ncm2.vim
 source $HOME/.config/nvim/plugins/phpactor.vim
