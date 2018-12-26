@@ -39,6 +39,10 @@ nmap <leader>p :r! cat /tmp/vitmp<CR>
 colorscheme gruvbox
 set background=dark
 
+" I Hold shift for too long, "fix" that problem:
+cmap W<CR> w<CR>
+cmap Wq<CR> wq<CR>
+
 " hardmode - disable arrow keys
 " noremap <Up> <Nop>
 " noremap <Down> <Nop>
