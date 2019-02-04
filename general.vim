@@ -39,6 +39,9 @@ nmap <leader>p :r! cat /tmp/vitmp<CR>
 colorscheme gruvbox
 set background=dark
 
+" transparent bg
+highlight Normal ctermbg=None
+
 " I Hold shift for too long, "fix" that problem:
 cmap W<CR> w<CR>
 cmap Wq<CR> wq<CR>

@@ -20,5 +20,5 @@ let g:signify_vcs_list = ['git']
 let g:airline_powerline_fonts = 1
 
 " pdv (docblock generation)
-let g:pdv_template_dir = $HOME ."/.vim/pdv/templates_snip"
+let g:pdv_template_dir = $HOME ."/nvim/plugged/pdv/templates_snip"
 nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
