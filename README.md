@@ -61,6 +61,8 @@ vi
 
 Then everything else happens from inside vim. Get used to that way of using vim.
 
+**Very important note**: I also have remapped cycling through buffers to `<Tab>` (the TAB key) and `<S-Tab>` (`SHIFT+TAB`) to cycle in reverse. I did this because it seemed natural to me. If you don't like that, change it in `general.vim`.
+
 1. [ctrlp](https://github.com/ctrlpvim/ctrlp.vim) This is definitely the most important plugin. It's how I find and open the file I'm looking for.
 
 Note that I have remapped `<c-p>` to `<c-f>` meaning you would use `CTRL+F` (just like you would in a web browser) instead of `CTRL-P`. Why did I do that? If I make a mistake more than 3 times, I just accept that it's not a mistake, and automate around it. If my hands want to reach for `CTRL+F` then so be it. Feel free to change that if you don't like it.
