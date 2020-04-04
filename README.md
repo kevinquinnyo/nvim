@@ -77,9 +77,9 @@ This provides:
 - Include use statement: `<Leader>u` (that's `\u`). This will create a `use` statement for the class under the cursor. If there is ambiguity, it will provide a list and let you select the correct class. It will also alphebetize them by default.
 - Transform - I use this a lot. It's a bit of a multi-purpose tool, including a nice refactoring helper. I mainly use it to apply properties to a class automatically, and to automatically implement contracts (it creates the required interface for you).
   - Just try this one and it will prompt you to choose an option.
-- There's a ton of stuff bakes in here that I hardly ever use or have never used. Maybe you'll use the rich feature set more than me.
+- There's a ton of stuff baked in here that I hardly ever use or have never used. Maybe you'll use the rich feature set more than me.
 
-3. [ale](https://github.com/dense-analysis/ale) Asynchronous Lint Engine. This is awesome for automatically bringing your code into phpcs, phplint, etc standards. If your project already has requirements defined for this via configuration files, it will find them, and automatically bring you into compliance every time you save. This prevents those `git commit -m 'fix coding standards ..again` commits.
+3. [ale](https://github.com/dense-analysis/ale) Asynchronous Lint Engine. This is awesome for automatically bringing your code into phpcs, phpstan, phpmd, etc standards. If your project already has requirements defined for this via configuration files, it will find them, and automatically bring you into compliance every time you save. This prevents those `git commit -m 'fix coding standards ..again` commits.
 
 4. [vim-test](https://github.com/janko/vim-test) When you are editing a test, just get the cursor near or inside the test function and then it's `t<C-n>` (that's the letter `t` followed by `CTRL+N`). I use this all the time. Sometimes you need to run a full test suite, but it's nice to just edit something, then run a test directly in vim. It's pretty amazing actually.
 
