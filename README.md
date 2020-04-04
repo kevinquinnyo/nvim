@@ -75,7 +75,7 @@ This provides:
 - Goto definition `<Leader>o` (that's `\o`). This will take you directly to the class or class member under the cursor.
   - It works 99% of the time. The only time it doesn't work is when you're dealing with code that has a little bit too much magic and it can't figure out how to resolve the class.
 - Include use statement: `<Leader>u` (that's `\u`). This will create a `use` statement for the class under the cursor. If there is ambiguity, it will provide a list and let you select the correct class. It will also alphebetize them by default.
-- Transform - I use this a lot. It's a bit of a multi-purpose tool, including a nice refactoring helper. I mainly use it to apply properties to a class automatically, and to automatically implement contracts (it creates the required interface for you).
+- Transform - I use this a lot. It's a bit of a multi-purpose tool, including a nice refactoring helper. I mainly use it to apply properties to a class automatically, and to automatically implement contracts (it auto-implements the required interface for you in the current class as needed with stub methods).
   - Just try this one and it will prompt you to choose an option.
 - There's a ton of stuff baked in here that I hardly ever use or have never used. Maybe you'll use the rich feature set more than me.
 
