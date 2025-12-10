@@ -26,21 +26,64 @@ require("lazy").setup({
   { "onsails/lspkind-nvim" },
   -- Snippets plugin
   { "L3MON4D3/LuaSnip" },
-  { "dense-analysis/ale" },
   -- Forked version of ALE temporarily
-  { "kevinquinnyo/ale", branch = "phpstan-memory-limit-option" }, -- Corrected URL
+  -- { "kevinquinnyo/ale", branch = "phpstan-memory-limit-option" }, -- Corrected URL
+  { "dense-analysis/ale"},
+
+
 
   -- Run tests in Vim
   { "janko/vim-test" },
   -- PHP code introspection and more
-  { "phpactor/phpactor", run = "composer install --no-dev -n" },
+  {
+    "phpactor/phpactor",
+    build = function()
+      vim.fn.system("cd " .. vim.fn.stdpath("data") .. "/lazy/phpactor && composer install --no-dev -n")
+    end,
+    config = function()
+      -- Set PHPActor global settings
+      vim.g.phpactorPhpBin = 'php'  -- PHP executable to use
+      vim.g.phpactorBranch = 'master'  -- PHPActor branch to use
+      vim.g.phpactorOmniAutoClassImport = true  -- Automatically import classes with omnicomplete
+
+      -- Define key mappings
+      local map = vim.api.nvim_set_keymap
+      local opts = { noremap = true, silent = true }
+
+      map('n', '<Leader>o', ':PhpactorGotoDefinition<CR>', opts)
+      map('n', '<Leader>u', ':call phpactor#ImportClass<CR>', opts)
+      map('n', '<Leader>mm', ':PhpactorContextMenu<CR>', opts)
+      map('n', '<Leader>nn', ':PhpactorNavigate<CR>', opts)
+      map('n', '<Leader>K', ':PhpactorHover<CR>', opts)
+      map('n', '<Leader>tt', ':PhpactorTransform<CR>', opts)
+      map('n', '<Leader>cc', ':PhpactorClassNew<CR>', opts)
+      map('n', '<Leader>e', ':PhpactorClassExpand<CR>', opts)
+      map('n', '<Leader>cv', ':PhpactorChangeVisibility<CR>', opts)
+      map('n', '<Leader>pfm', ':PhpactorMoveFile<CR>', opts)
+
+      -- Extract expression
+      map('n', '<Leader>ee', ':PhpactorExtractExpression<CR>', opts)
+      map('v', '<Leader>ee', ':PhpactorExtractExpression<CR>', opts)
+
+      -- Extract method
+      map('v', '<Leader>pem', ':PhpactorExtractMethod<CR>', opts)
+
+    end
+  },
+  { "ncm2/ncm2" },
+  { "roxma/nvim-yarp" },
+  { "ncm2/ncm2-path" },
+  { "ncm2/ncm2-bufword" },
+  { "phpactor/ncm2-phpactor" },
   -- Syntax highlighting
   { "nvim-treesitter/nvim-treesitter" },
   -- Statusline plugin
   { "feline-nvim/feline.nvim" },
   -- Fuzzy file finder
   { "ctrlpvim/ctrlp.vim" },
-  { "github/copilot.vim", url = "git@github.com:github/copilot.vim.git" }
+  { "github/copilot.vim", url = "git@github.com:github/copilot.vim.git" },
+  -- for :Git blame and friends
+  { "tpope/vim-fugitive" },
 })
 
 -- Check if Composer is installed
@@ -67,6 +110,30 @@ vim.opt.smartindent = true -- Smart indentation
 vim.opt.autoindent = true -- Auto-indent new lines
 vim.opt.hidden = true -- Allow switching buffers without saving
 
+vim.opt.mouse = ""
+
+-- Hardmode
+local hardmode = false
+if hardmode then
+    -- Show an error message if a disabled key is pressed
+    local msg = [[<cmd>echohl Error | echo "KEY DISABLED" | echohl None<CR>]]
+
+    -- Disable arrow keys in insert mode with a styled message
+    vim.api.nvim_set_keymap('i', '<Up>', '<C-o>' .. msg, { noremap = true, silent = false })
+    vim.api.nvim_set_keymap('i', '<Down>', '<C-o>' .. msg, { noremap = true, silent = false })
+    vim.api.nvim_set_keymap('i', '<Left>', '<C-o>' .. msg, { noremap = true, silent = false })
+    vim.api.nvim_set_keymap('i', '<Right>', '<C-o>' .. msg, { noremap = true, silent = false })
+    vim.api.nvim_set_keymap('i', '<Del>', '<C-o>' .. msg, { noremap = true, silent = false })
+    vim.api.nvim_set_keymap('i', '<BS>', '<C-o>' .. msg, { noremap = true, silent = false })
+
+    -- Disable arrow keys in normal mode with a styled message
+    vim.api.nvim_set_keymap('n', '<Up>', msg, { noremap = true, silent = false })
+    vim.api.nvim_set_keymap('n', '<Down>', msg, { noremap = true, silent = false })
+    vim.api.nvim_set_keymap('n', '<Left>', msg, { noremap = true, silent = false })
+    vim.api.nvim_set_keymap('n', '<Right>', msg, { noremap = true, silent = false })
+    vim.api.nvim_set_keymap('n', '<BS>', msg, { noremap = true, silent = false })
+end
+
 -- cycle through buffers with tab and shift-tab
 vim.api.nvim_set_keymap('n', '<Tab>', ':bnext<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<S-Tab>', ':bprev<CR>', { noremap = true })
@@ -91,7 +158,8 @@ vim.g.ale_fixers = {
     ['*'] = { 'remove_trailing_lines', 'trim_whitespace' },
     php = { 'phpcbf' },
 }
-vim.g.ale_fix_on_save = 1
+-- TODO re-enable
+vim.g.ale_fix_on_save = 0
 vim.g.ale_php_phpcbf_executable = '/Users/kevin/bin/phpcbf-wrapper.sh'
 
 -- Shortcut for showing full ALE lint error message
@@ -105,7 +173,7 @@ vim.api.nvim_set_keymap('n', '<Leader>ez', ':e ~/.zshrc<CR>', { noremap = true, 
 
 -- PHPActor key mappings
 vim.api.nvim_set_keymap('n', '<Leader>o', ':PhpactorGotoDefinition<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>u', ':PhpactorUseAdd<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>u', ':PhpactorImportClass<CR>', { noremap = true, silent = true })
 
 -- CtrlP key mappings
 --vim.g.ctrlp_map = '<c-f>'
@@ -136,4 +204,31 @@ require'nvim-treesitter.configs'.setup {
 }
 
 -- Misc
+vim.api.nvim_set_keymap('n', '<Leader>ev', ':e $MYVIMRC<CR>', { noremap = true, silent = true })
 vim.cmd("iabbrev dst declare(strict_types=1);") -- type dst to add declare(strict_types=1);
+
+-- phpactor global config
+vim.g.phpactorPhpBin = 'php' -- PHP executable to use
+vim.g.phpactorBranch = 'master' -- PHPActor branch to use
+vim.g.phpactorOmniAutoClassImport = true -- Automatically import classes with omnicomplete
+
+-- ncm2 stuff
+-- Enable ncm2 for all buffers on BufEnter.
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  callback = function()
+    vim.fn["ncm2#enable_for_buffer"]()
+  end,
+})
+
+-- Set the 'completeopt' options.
+vim.o.completeopt = "noinsert,menuone,noselect"
+
+-- In insert mode, use <Tab> and <S-Tab> to navigate the popup menu.
+vim.keymap.set("i", "<Tab>", function()
+  return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+end, { expr = true })
+
+vim.keymap.set("i", "<S-Tab>", function()
+  return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+end, { expr = true })
